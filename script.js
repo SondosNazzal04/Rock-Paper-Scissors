@@ -17,8 +17,8 @@ function getHumanChoice() {
 
 // rock < paper < scissors < rock
 // 0 < 1 < 2 < 0
-const humanChoice = getHumanChoice().toLowerCase();
-const computerChoice = getComputerChoice();
+let humanChoice = getHumanChoice().toLowerCase();
+let computerChoice = getComputerChoice();
 
 function playGame() {
 	let humanScore = 0;
@@ -49,7 +49,13 @@ function playGame() {
 		console.log(winner + " beats " + loser);
 	}
 	for (let i = 0; i < 5; i++)
+	{
 		playRound(humanChoice, computerChoice);
+		humanChoice = getHumanChoice().toLowerCase();
+		computerChoice = getComputerChoice();
+	}
+	// console.log("Human: " + humanChoice);
+	// console.log("Computer:" + Object.keys(choices)[computerChoice]);
 	if (humanScore > computerScore)
 		console.log("You win the game!");
 	else
@@ -58,8 +64,6 @@ function playGame() {
 
 playGame(humanChoice, computerChoice);
 
-console.log("Human: " + humanChoice);
-console.log("Computer:" + Object.keys(choices)[computerChoice]);
 // if (computerChoice == 0)
 // 	console.log("Computer: Rock");
 // else if (computerChoice == 1)
