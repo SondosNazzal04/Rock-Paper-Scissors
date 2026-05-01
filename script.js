@@ -9,60 +9,65 @@ function getComputerChoice() {
 	return choice;
 }
 
-function getHumanChoice() {
-	const choice = prompt("Rock-Paper-Scissors!!!");
-	return choice;
-}
-
-
 // rock < paper < scissors < rock
 // 0 < 1 < 2 < 0
-let humanChoice = getHumanChoice().toLowerCase();
-let computerChoice = getComputerChoice();
 
-function playGame() {
-	let humanScore = 0;
-	let computerScore = 0;
-
-	function playRound(human, computer) {
-		let winner;
-		let loser;
-		if (choices[human] == computer)
-		{
-			console.log("Tie");
-			return ;
-		}
-		else if (choices[human] - 1 == computer || (choices[human]) == 0 && computer == 2)
-		{
-			humanScore++;
-			winner = human;
-			loser = Object.keys(choices)[computer];
-			console.log("You Win!! ");
-		}
-		else
-		{
-			computerScore++;
-			winner = Object.keys(choices)[computer];
-			loser = human;
-			console.log("You Lose :( ");
-		}
-		console.log(winner + " beats " + loser);
-	}
-	for (let i = 0; i < 5; i++)
-	{
-		playRound(humanChoice, computerChoice);
-		humanChoice = getHumanChoice().toLowerCase();
-		computerChoice = getComputerChoice();
-	}
-	// console.log("Human: " + humanChoice);
-	// console.log("Computer:" + Object.keys(choices)[computerChoice]);
-	if (humanScore > computerScore)
-		console.log("You win the game!");
-	else
-		console.log("You Lost the game!");
+function initgame() {
+	// const choice = prompt("Rock-Paper-Scissors!!!");
+	const choices = document.querySelectorAll(".choices");
+	choices.forEach(element => {
+		element.addEventListener("click", () => {
+			const humanChoice = element.id.toLowerCase();
+			const computerChoice = getComputerChoice();
+			playRound(humanChoice, computerChoice);
+		});
+	});
 }
 
-playGame(humanChoice, computerChoice);
+// let humanChoice = getHumanChoice();
+
+const displayRoundResults = document.createElement("div");
+
+function playRound(human, computer) {
+	let winner;
+	let loser;
+	if (choices[human] == computer)
+	{
+		displayRoundResults.innerText = "Tie";
+		console.log("Tie");
+		// document.body.removeChild(document.getElementById("displayRoundResult"));
+		document.body.appendChild(displayRoundResults);
+		return ;
+	}
+	else if (choices[human] - 1 == computer || (choices[human]) == 0 && computer == 2)
+	{
+		winner = human;
+		loser = Object.keys(choices)[computer];
+		console.log("You Win!! ");
+		displayRoundResults.innerText = "You Win!! ";
+	}
+	else
+	{
+		winner = Object.keys(choices)[computer];
+		loser = human;
+		console.log("You Lose :( ");
+		displayRoundResults.innerText = "You Lose :( ";
+	}
+	console.log(winner + " beats " + loser);
+	displayRoundResults.innerText += winner + " beats " + loser;
+	displayRoundResults.id = "displayRoundResult";
+	// document.body.removeChild(document.getElementById("displayRoundResult"));
+	document.body.appendChild(displayRoundResults);
+}
+
+initgame();
+
+// playRound(human, computer);
+// console.log("Human: " + humanChoice);
+// console.log("Computer:" + Object.keys(choices)[computerChoice]);
+
+
+// playGame(humanChoice, computerChoice);
 
 // if (computerChoice == 0)
 // 	console.log("Computer: Rock");
